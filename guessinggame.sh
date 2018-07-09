@@ -5,23 +5,23 @@
 # file with special characters. Honestly who would be silly enough to do that.
 # It would create a real headache. gosh darn error testing.
 function FN {
-	local p=$(ls -a -F | egrep "[\*\/\=\>\@\|]"| wc -l)
-	local q=$(ls -a | wc -l)
-	eval echo $q-$p
+	local special=$(ls -a -F | egrep "[\*\/\=\>\@\|]"| wc -l)
+	local all=$(ls -a | wc -l)
+	eval echo $all-$special
 }
 function guessinggame.sh {
 # putting it in a function is pretty ugly I know, but I'm not sure how else to
-# avoid wiping i and q globally
-i=-1
-q=$(FN)
-while [[ $i -ne $q ]]
+# avoid wiping guess and q globally
+local guess=-1
+local q=$(FN)
+while [[ $guess -ne $q ]]
 do
 	echo "make your guess: "
-	read i
-	if [[ $i -eq $q  ]]
+	read guess
+	if [[ $guess -eq $q  ]]
 	then
 		echo "Correct, congrats"
-	elif [[ $i -gt $q ]]
+	elif [[ $guess -gt $q ]]
 	then
 		echo "too high, try again"
 	else
